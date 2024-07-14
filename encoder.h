@@ -19,7 +19,7 @@ struct encoder initialize_encoder(pin_outputA, pin_outputB,pin_button)
 }
 
 
-int get_encoder_direction(encoder)
+int get_encoder_direction(struct encoder)
 {
 	//chequea para donde giró el encoder. Si avanzó en el gray, tipo de 0 -> 1 -> 3 -> 2 -> 0 devuelve 1. si retrocede devuelve -1, si es igual devuelve 0;
 
@@ -50,3 +50,7 @@ int get_encoder_direction(encoder)
 	return result;
 	}
 
+bool get_button_state(struct encoder)
+{
+	return digitalRead(encoder.pin_button);
+}
