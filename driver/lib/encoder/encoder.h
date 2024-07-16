@@ -1,4 +1,4 @@
-//creo una instancia del encoder que va a contener su información
+/* //creo una instancia del encoder que va a contener su información
 struct encoder
 {
 	int pin_outputA;
@@ -53,4 +53,4 @@ int get_encoder_direction(struct encoder)
 bool get_button_state(struct encoder)
 {
 	return digitalRead(encoder.pin_button);
-}
+} */
