@@ -1,4 +1,6 @@
 
+#include <Arduino.h>
+
 //creo una instancia del encoder que va a contener su información
 typedef struct encoder encoder_t;
 

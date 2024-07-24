@@ -1,3 +1,5 @@
+#include "encoder.h"
+
 typedef struct encoder
 {
 	int pin_outputA;
