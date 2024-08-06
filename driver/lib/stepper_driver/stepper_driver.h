@@ -114,7 +114,6 @@ void Stepper_driver::wake_motor(){
     digitalWrite(this->pin_sleep_,1);
 };
 
-
 void Stepper_driver::initialize_stepper(char pin_enable,char pin_direction,char pin_reset,char pin_sleep,char pin_step,char pin_M0,char pin_M1,char pin_M2){
     this->set_enable_pin(pin_enable);
 
