@@ -14,7 +14,8 @@ typedef struct encoder
 	int pin_outputB;
 	int pin_button;
 	encoder_state_t state;
-  	int factor_correccion; // El encoder que usamos se traba de a 2 y suma o resta 2
+  	bool factor_correccion; // El encoder que usamos se traba de a 2 y suma o resta 2
+	bool flag; // El encoder que usamos se traba de a 2 y suma o resta 2
 } encoder_t;
 
 // Inicializa la instancia de la estructura, úsalo en el void setup con los pines
@@ -44,8 +45,17 @@ int get_encoder_direction(encoder_t *encoder)
 	int result = 0;
 	encoder_state_t old_value = encoder->state;
 
+	
+
+
 	if (old_value != current_value) 
 	{
+		if(encoder->factor_correccion == 1 && encoder->flag == 0){
+			encoder->flag = 1;
+
+		}
+
+
 		// Verifica el cambio de estado del encoder para determinar la dirección del movimiento
 		switch (current_value)
 		{
