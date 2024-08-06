@@ -91,33 +91,31 @@ void Stepper_driver::move_steps(sentido_t dir, int steps){
 };
 
 
-
-
-void enable_motor(){
+void Stepper_driver::enable_motor(){
     digitalWrite(this->pin_enable_,0);
 };
 
-void disable_motor(){
+void Stepper_driver::disable_motor(){
     digitalWrite(this->pin_enable_,1);
 };
 
-void reset_motor(){
+void Stepper_driver::reset_motor(){
     digitalWrite(this->pin_reset_,0);
     delay(5);
     digitalWrite(this->pin_reset_,1);
 
 };
 
-void sleep_motor(){
+void Stepper_driver::sleep_motor(){
     digitalWrite(this->pin_sleep_,0);
 };
 
-void wake_motor(){
+void Stepper_driver::wake_motor(){
     digitalWrite(this->pin_sleep_,1);
 };
 
 
-void initialize_stepper(char pin_enable,char pin_direction,char pin_reset,char pin_sleep,char pin_step,char pin_M0,char pin_M1,char pin_M2){
+void Stepper_driver::initialize_stepper(char pin_enable,char pin_direction,char pin_reset,char pin_sleep,char pin_step,char pin_M0,char pin_M1,char pin_M2){
     this->set_enable_pin(pin_enable);
 
     this->disable_motor();
@@ -134,7 +132,7 @@ void initialize_stepper(char pin_enable,char pin_direction,char pin_reset,char p
 
     this->set_M1_pin(pin_M1);
 
-    this->set_M2_pin(pin_M27);
+    this->set_M2_pin(pin_M2);
     this->wake_motor();
     this->reset_motor();
 };
