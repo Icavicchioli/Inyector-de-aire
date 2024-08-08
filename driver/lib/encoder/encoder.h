@@ -20,7 +20,7 @@ class Encoder{
 		bool factor_correccion = 0; // true indica que hay que corregir 
 		bool flag = 0; //usado en la corrección, se usa para dividir la frecuencia
 
-}
+};
 
 
 
