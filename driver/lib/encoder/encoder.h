@@ -25,7 +25,7 @@ class Encoder{
 
 
 // Inicializa la instancia de la estructura, úsalo en el void setup con los pines
-void Encoder:: initialize_encoder(int pin_outputA, int pin_outputB, int pin_button, int factor_correccion)
+void Encoder::initialize_encoder(int pin_outputA, int pin_outputB, int pin_button, int factor_correccion)
 {
 	// Configuración de los pines de salida A y B del encoder como entradas
   	pinMode(pin_outputA, INPUT);
