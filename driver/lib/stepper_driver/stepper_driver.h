@@ -34,41 +34,49 @@ class Stepper_driver{
 void Stepper_driver::set_enable_pin(char pin_enable){
     this->pin_enable_ = pin_enable;
     pinMode(pin_enable,OUTPUT);
+    digitalWrite(pin_enable,0);
 };
 
 void Stepper_driver::set_direction_pin(char pin_direction){
     this->pin_direction_ = pin_direction;
     pinMode(pin_direction,OUTPUT);
+    digitalWrite(pin_direction,0);
 };
 
 void Stepper_driver::set_reset_pin(char pin_reset){
     this->pin_reset_ = pin_reset;
     pinMode(pin_reset,OUTPUT);
+    digitalWrite(pin_reset,0);
 };
 
 void Stepper_driver::set_sleep_pin(char pin_sleep){
     this->pin_sleep_=pin_sleep;
     pinMode(pin_sleep,OUTPUT);
+    digitalWrite(pin_sleep,0);
 };
 
 void Stepper_driver::set_step_pin(char pin_step){
     this->pin_step_=pin_step;
     pinMode(pin_step,OUTPUT);
+    digitalWrite(pin_step,0);
 };
 
 void Stepper_driver::set_M0_pin(char pin_M0){
     this->pin_M0_=pin_M0;
     pinMode(pin_M0,OUTPUT);
+    digitalWrite(pin_M0,0);
 };
 
 void Stepper_driver::set_M1_pin(char pin_M1){
     this->pin_M1_=pin_M1;
     pinMode(pin_M1,OUTPUT);
+    digitalWrite(pin_M1,0);
 };
 
 void Stepper_driver::set_M2_pin(char pin_M2){
    this->pin_M2_=pin_M2;
     pinMode(pin_M2,OUTPUT);
+    digitalWrite(pin_M2,0);
 };
 
 void Stepper_driver::step(){
