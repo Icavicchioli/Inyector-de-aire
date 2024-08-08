@@ -1,5 +1,3 @@
-
-
 class Encoder{
 	public:
 		void initialize_encoder(int pin_outputA, int pin_outputB, int pin_button, int factor_correccion);
