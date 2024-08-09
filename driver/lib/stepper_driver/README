@@ -1,0 +1,1 @@
+biblioteca de control del driver DVR8825 hecha en C++ para Arduino. Se crea una instancia de la clase y se inicia. Después se puede cambiar la duración de los tiempos  - Nacho C
