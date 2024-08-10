@@ -5,7 +5,7 @@
 //se va a guardar la instancia de parámetros entera en la eeprom y se lee desde 0
 
 
-class parametros_maquina{
+class Parametros_Maquina{
     public:
 
         //quiero levantarlo de memoria
@@ -41,7 +41,7 @@ class parametros_maquina{
             this->params.volumen_por_paso=x
         };
 
-        get_resolucion_driver(){
+        float get_resolucion_driver(){
             return this->params.resolucion_driver;
         };
 
@@ -73,4 +73,4 @@ class parametros_maquina{
     }params_t;
 
     params_t params;
-}
+};
