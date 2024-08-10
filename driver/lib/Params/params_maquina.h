@@ -9,11 +9,11 @@
 //proteus no trabaja nativamente con eeprom, veamos que hacemos
 
     typedef struct params{
-        float resolucion_driver;//sería en pasos/rev
-        float avance;//en mm por paso, depende de la 
-        float volumen_actual;//en ml - es el ya elegido
-        float volumen_jeringa;//el volumen de la jeringa
-        float volumen_por_paso;//volumen desplazdo por paso - en ml/paso
+        char resolucion_driver;//sería en pasos/rev
+        char avance;//en mm por paso, depende de la 
+        char volumen_actual;//en ml - es el ya elegido
+        char volumen_jeringa;//el volumen de la jeringa
+        char volumen_por_paso;//volumen desplazdo por paso - en ml/paso
     }params_t;
 
 
