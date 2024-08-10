@@ -1,3 +1,4 @@
+
 //lib de clase para ctes
 
 //usa la eeprom para guardar las cosas
@@ -5,11 +6,21 @@
 //se va a guardar la instancia de parámetros entera en la eeprom y se lee desde 0
 
 
+//proteus no trabaja nativamente con eeprom, veamos que hacemos
+
+    typedef struct params{
+        float resolucion_driver;//sería en pasos/rev
+        float avance;//en mm por paso, depende de la 
+        float volumen_actual;//en ml - es el ya elegido
+        float volumen_jeringa;//el volumen de la jeringa
+        float volumen_por_paso;//volumen desplazdo por paso - en ml/paso
+    }params_t;
+
+
 class Parametros_Maquina{
     public:
-
         //quiero levantarlo de memoria
-        params_t cargar(){
+        void cargar(){
             params_t a;
             EEPROM.get(0,a);
             this->params = a;
@@ -17,7 +28,7 @@ class Parametros_Maquina{
 
         //y guardarlo
         void guardar(){
-            EEPROM.put(0,this->params);
+            EEPROM,put(0,this->params);
         };
 
         void set_resolucion_driver(float x){
@@ -64,13 +75,5 @@ class Parametros_Maquina{
 
     private:
     //ctes
-    typedef struct params{
-        float resolucion_driver;//sería en pasos/rev
-        float avance;//en mm por paso, depende de la 
-        float volumen_actual;//en ml - es el ya elegido
-        float volumen_jeringa;//el volumen de la jeringa
-        float volumen_por_paso;//volumen desplazdo por paso - en ml/paso
-    }params_t;
-
     params_t params;
 };
