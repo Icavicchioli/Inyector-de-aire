@@ -28,7 +28,7 @@ class Parametros_Maquina{
 
         //y guardarlo
         void guardar(){
-            EEPROM,put(0,this->params);
+            EEPROM.put(0,this->params);
         };
 
         void set_resolucion_driver(float x){
