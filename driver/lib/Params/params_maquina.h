@@ -38,7 +38,7 @@ class Parametros_Maquina{
 
         void set_volumen_por_paso(float x){
             //idealmente se calcularía
-            this->params.volumen_por_paso=x
+            this->params.volumen_por_paso=x;
         };
 
         float get_resolucion_driver(){
