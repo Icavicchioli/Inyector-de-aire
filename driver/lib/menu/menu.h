@@ -2,11 +2,7 @@
 #include <LiquidCrystal_I2C.h>
 #include <string.h>
 
-#define ADDRESS 56 //0x38
-#define COLS 16
-#define ROWS 2
 
-LiquidCrystal_I2C lcd(ADDRESS, COLS, ROWS);  // Address 0x27 for 16x2 LCD
 
 typedef void (*MenuFunction)();
 
@@ -20,19 +16,13 @@ public:
     Menu(const MenuItem* items, size_t numItems, LiquidCrystal_I2C& lcd)
         : menuItems(items), numItems(numItems), currentIndex(0), lcd(lcd) {}
 
-    void displayMenu() const {
+    void display_Menu(char* text) const {//la cambié para que muestre texto
         lcd.clear();
         lcd.setCursor(0, 0);
-        lcd.print("Menu:");
-        for (size_t i = 0; i < numItems; ++i) {
-            lcd.setCursor(0, i + 1);
-            lcd.print(i + 1);
-            lcd.print(". ");
-            lcd.print(menuItems[i].name);
-        }
+        lcd.print(text);
     }
 
-    void displayCurrentItem() const {
+    void display_Current_Item() const {
         lcd.clear();
         lcd.setCursor(0, 0);
         lcd.print("Selected:");
@@ -40,7 +30,7 @@ public:
         lcd.print(menuItems[currentIndex].name);
     }
 
-    void selectItem(size_t index) {
+    void select_Item(size_t index) {
         if (index < numItems) {
             if (menuItems[index].action) {
                 menuItems[index].action();
@@ -48,22 +38,22 @@ public:
         }
     }
 
-    void nextItem() {
+    void next_Item() {
         currentIndex = (currentIndex + 1) % numItems;
-        displayCurrentItem();
+        display_Current_Item();
     }
 
-    void previousItem() {
+    void previous_Item() {
         if (currentIndex == 0) {
             currentIndex = numItems - 1;
         } else {
             --currentIndex;
         }
-        displayCurrentItem();
+        display_Current_Item();
     }
 
-    void selectCurrentItem() {
-        selectItem(currentIndex);
+    void select_Current_Item() {
+        select_Item(currentIndex);
     }
 
 private:
