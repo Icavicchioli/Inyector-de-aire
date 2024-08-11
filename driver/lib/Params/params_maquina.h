@@ -20,14 +20,14 @@
 class Parametros_Maquina{
     public:
         //quiero levantarlo de memoria
-        void cargar(){
+        void load(){
             params_t a;
             EEPROM.get(0,a);
             this->params = a;
         };
 
         //y guardarlo
-        void guardar(){
+        void save(){
             EEPROM.put(0,this->params);
         };
 

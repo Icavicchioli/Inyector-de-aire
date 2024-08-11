@@ -1,0 +1,128 @@
+//menues hechos a manu por nachito C, me deben un fernet
+#include <wire.h>
+#include <LiquidCrystal_I2C.h>
+#include <string.h>
+//vamos a hacer 3 cosas: la estructura de un menu, una función pública para escribir al lcd y algo que funcione como array de menu.
+//la idea es que haya una función que instanciada llame a otra función por punteros a funciones mientras que otros menues solo muestren texto. 
+
+#define ADRESS 56 //0x38
+#define COLS 16
+#define ROWS 2
+
+
+LiquidCrystal_I2C lcd(ADRESS,COLS,ROWS);
+
+//código para inicar el lcd
+
+
+//función para escribir en el lcd
+
+
+
+typedef void (*MenuFunction)();
+
+struct MenuItem {
+    const char* name;
+    MenuFunction action;
+};
+
+
+class Menu {
+public:
+    Menu(const MenuItem* items, size_t numItems, LiquidCrystal_I2C& lcd)
+        : menuItems(items), numItems(numItems), currentIndex(0), lcd(lcd) {}
+
+    void displayMenu() const {
+        lcd.clear();
+        lcd.setCursor(0, 0);
+        lcd.print("Menu:");
+        for (size_t i = 0; i < numItems; ++i) {
+            lcd.setCursor(0, i + 1);
+            lcd.print(i + 1);
+            lcd.print(". ");
+            lcd.print(menuItems[i].name);
+        }
+    }
+
+    void displayCurrentItem() const {
+        lcd.clear();
+        lcd.setCursor(0, 0);
+        lcd.print("Selected:");
+        lcd.setCursor(0, 1);
+        lcd.print(menuItems[currentIndex].name);
+    }
+
+    void selectItem(size_t index) {
+        if (index < numItems) {
+            if (menuItems[index].action) {
+                menuItems[index].action();
+            }
+        }
+    }
+
+    void nextItem() {
+        currentIndex = (currentIndex + 1) % numItems;
+        displayCurrentItem();
+    }
+
+    void previousItem() {
+        if (currentIndex == 0) {
+            currentIndex = numItems - 1;
+        } else {
+            --currentIndex;
+        }
+        displayCurrentItem();
+    }
+
+    void selectCurrentItem() {
+        selectItem(currentIndex);
+    }
+
+private:
+    const MenuItem* menuItems;
+    size_t numItems;
+    size_t currentIndex;
+    LiquidCrystal_I2C& lcd;
+};
+
+
+void action1() {
+    // Your action code here
+}
+
+void action2() {
+    // Your action code here
+}
+
+void action3() {
+    // Your action code here
+}
+
+// Menu items array
+const MenuItem menuItems[] = {
+    {"Item 1", action1},
+    {"Item 2", action2},
+    {"Item 3", action3}
+};
+
+const size_t numMenuItems = sizeof(menuItems) / sizeof(menuItems[0]);
+
+// Initialize the LCD (I2C address might vary)
+LiquidCrystal_I2C lcd(0x27, 16, 2);  // Address 0x27 for 16x2 LCD
+
+// Create the Menu object
+Menu menu(menuItems, numMenuItems, lcd);
+
+void setup() {
+    lcd.begin();       // Initialize the LCD
+    lcd.backlight();  // Turn on the LCD backlight
+    menu.displayMenu();
+}
+
+void loop() {
+    // Example usage
+    delay(2000); // Wait for 2 seconds
+    menu.nextItem();
+    delay(2000); // Wait for 2 seconds
+    menu.selectCurrentItem();
+}
