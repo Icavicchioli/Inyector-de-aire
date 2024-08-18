@@ -33,7 +33,7 @@ void peripheral_loop() {
 #include "encoder.h"
 #include <wire.h>
 #include <LiquidCrystal_I2C.h>
-#include <params.h>
+//#include <params_maquina.h>
 #include <menu.h>
 
 //el stepper
@@ -42,11 +42,8 @@ Stepper_driver mi_stepper;
 //el encoder
 Encoder mi_encoder;
 
-//esto es para el lcd, la lib de menu desp lo maneja solita
-LiquidCrystal_I2C lcd(0x38, 16, 2);// Address 0x38 for 16x2 LCD
 
 void setear_pasos();
-
 void correr();
 
 
@@ -60,26 +57,28 @@ const size_t numMenuItems = sizeof(menuItems) / sizeof(menuItems[0]);//el tamani
 
 Menu menu(menuItems, numMenuItems, lcd);//el objeto menu
 
-void setup () {
-peripheral_setup();
-
-// TODO: put your setup code here, to run once:
-  mi_stepper.initialize_stepper(5,2,6,4,3,14,15,16);
-  mi_encoder.initialize_encoder(7,8,11,0);
-  
-  lcd.init();       // Initialize the LCD
-  lcd.backlight();  // Turn on the LCD backlight
-  menu.display_Menu("Bienvenido");
-}
-
-
-
 int a;
 unsigned int pasos = 1;
 
 
+void setup () {
+//peripheral_setup();
+
+// TODO: put your setup code here, to run once:
+  mi_stepper.initialize_stepper(11,4,7,6,5,10,9,8);
+  mi_encoder.initialize_encoder(A0,A1,A2,1);
+ lcd.init();       // Initialize the LCD
+lcd.backlight();  // Turn on the LCD backlight
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print("Hola...");
+    delay(2000);
+    menu.next_Item();
+}
+
+
 void loop() {
-peripheral_loop();
+//peripheral_loop();
 // TODO: put your main code here, to run repeatedly:
 
    a = mi_encoder.get_encoder_direction();
@@ -116,9 +115,11 @@ void setear_pasos(){
 }
 
 void correr(){
-    menu.display_Menu("Correr pasos");
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print("Correr");
     mi_stepper.move_steps(avanza,pasos);
-   menu.display_Current_Item();//para que vuelva bien
+    menu.display_Current_Item();//para que vuelva bien
 }
 
 
