@@ -20,10 +20,7 @@ struct MenuItem {
 class Menu {
 public:
     Menu(const MenuItem* items, size_t numItems, LiquidCrystal_I2C& lcd)
-        : menuItems(items), numItems(numItems), currentIndex(0), lcd(lcd) {
-	   lcd.init();       // Initialize the LCD
-	    lcd.backlight();  // Turn on the LCD backlight
-	   };
+        : menuItems(items), numItems(numItems), currentIndex(0), lcd(lcd) {}
 
 
     void display_Current_Item() const {
