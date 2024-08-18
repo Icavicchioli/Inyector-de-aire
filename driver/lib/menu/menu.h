@@ -1,9 +1,15 @@
 #include <wire.h>
 #include <LiquidCrystal_I2C.h>
-#include <string.h>
 
 
+#define ADDRESS 0x27 //0x38
+#define COLS 16
+#define ROWS 2
 
+LiquidCrystal_I2C lcd(ADDRESS, COLS, ROWS);  // Address 0x27 for 16x2 LCD
+
+
+  
 typedef void (*MenuFunction)();
 
 struct MenuItem {
@@ -14,13 +20,11 @@ struct MenuItem {
 class Menu {
 public:
     Menu(const MenuItem* items, size_t numItems, LiquidCrystal_I2C& lcd)
-        : menuItems(items), numItems(numItems), currentIndex(0), lcd(lcd) {}
+        : menuItems(items), numItems(numItems), currentIndex(0), lcd(lcd) {
+	   lcd.init();       // Initialize the LCD
+	    lcd.backlight();  // Turn on the LCD backlight
+	   };
 
-    void display_Menu(char* text) const {//la cambié para que muestre texto
-        lcd.clear();
-        lcd.setCursor(0, 0);
-        lcd.print(text);
-    }
 
     void display_Current_Item() const {
         lcd.clear();
