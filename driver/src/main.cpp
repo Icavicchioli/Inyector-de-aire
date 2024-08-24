@@ -82,7 +82,7 @@ peripheral_setup();
    mi_params.set_avance(0.004);//0.004mm/paso
    mi_params.set_volumen_jeringa(20);//20 ml
    mi_params.set_volumen_por_paso(0.001265);//20ml/62mm = 0,32258064516129032258064516129032 ml/mm *0.004mm/paso =  0,00129032258064516129032258064516 ml/paso
-   mi_params.set_volumen_burbuja(1);//0.2 ml
+   mi_params.set_volumen_burbuja(5);//0.2 ml
    
    volumen_actual=mi_params.get_volumen_burbuja();
   
