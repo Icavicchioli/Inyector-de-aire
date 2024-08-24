@@ -81,9 +81,9 @@ void Stepper_driver::set_M2_pin(char pin_M2){
 
 void Stepper_driver::step(int pin){
     digitalWrite(pin, 1);
-    delayMicroseconds(300);
+    delayMicroseconds(500);
     digitalWrite(pin, 0);
-    delayMicroseconds(300);
+    delayMicroseconds(500);
 };
 
 void Stepper_driver::set_direction(sentido_t dir){
