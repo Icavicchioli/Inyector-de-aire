@@ -26,7 +26,7 @@ public:
     void display_Current_Item() const {
         lcd.clear();
         lcd.setCursor(0, 0);
-        lcd.print("Selected:");
+        lcd.print("Selección:");
         lcd.setCursor(0, 1);
         lcd.print(menuItems[currentIndex].name);
     }
