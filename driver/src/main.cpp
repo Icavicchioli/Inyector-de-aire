@@ -92,17 +92,10 @@ peripheral_setup();
 	mi_params.set_volumen_por_paso(0.001265);//20ml/62mm = 0,32258064516129032258064516129032 ml/mm *0.004mm/paso =  0,00129032258064516129032258064516 ml/paso
 	mi_params.set_volumen_burbuja(1);//0.2 ml
 	volumen_actual=mi_params.get_volumen_burbuja();
-  /*
-	noInterrupts();  // Disable interrupts while configuring timer
-    pinMode(pin_final_carrera_1, INPUT);
-    pinMode(pin_final_carrera_2, INPUT);
-    attachInterrupt(digitalPinToInterrupt(pin_final_carrera_1), interrupcion_FC1, CHANGE);
-    attachInterrupt(digitalPinToInterrupt(pin_final_carrera_2), interrupcion_FC2, CHANGE);
-*/
 
 	attachInterrupt(digitalPinToInterrupt(pin_final_carrera_1),interrupcion_FC1, FALLING); 
 	attachInterrupt(digitalPinToInterrupt(pin_final_carrera_2), interrupcion_FC2, FALLING); 
-
+//Serial.begin(9600);
 	lcd.init();       // Initialize the LCD
 	lcd.backlight();  // Turn on the LCD backlight
     lcd.clear();
@@ -110,8 +103,6 @@ peripheral_setup();
     lcd.print("Iniciando...");
     delay(2000);
     menu.next_Item();
-
-  Serial.begin(9600);  // Initialize serial communication
 }
 
 
@@ -129,7 +120,9 @@ void loop() {
  while(mi_encoder.get_button_state()==false);
    menu.select_Current_Item();//entramos al menu
  }
-	if( int_flag==1){reinicio();}
+	if(int_flag==1){
+		reinicio();
+	}
 }
 
 
@@ -193,31 +186,29 @@ void clearRow(int row) {
 
 
 void interrupcion_FC1(void){
-detachInterrupt(digitalPinToInterrupt(pin_final_carrera_1));
- int_flag=1;
+	if(int_flag==0){
+		int_flag=1;
+	}
 };
 
 
 void interrupcion_FC2(void){
-detachInterrupt(digitalPinToInterrupt(pin_final_carrera_2));
-int_flag=2;
+	if(int_flag==1){
+		int_flag=0;
+	}
 };
 
 void reinicio(){
     lcd.clear();
     lcd.setCursor(0, 0);
     lcd.print("Reiniciando");
-	int_flag=0;
-	while(int_flag==0){
+	while(int_flag==1){
 		mi_stepper.move_steps(retrocede,25);//sale con la interrupcion 2
 	}
 	delay(100);
-
-	mi_stepper.move_steps(avanza,1000);//nos movemos hasta que dejamos de tocar
-	int_flag=0;
-	attachInterrupt(digitalPinToInterrupt(pin_final_carrera_1),interrupcion_FC1, FALLING); 
-	attachInterrupt(digitalPinToInterrupt(pin_final_carrera_2), interrupcion_FC2, FALLING); 
+	mi_stepper.move_steps(avanza,1000);//nos movemos hasta que dejamos de tocar	
 	menu.display_Current_Item();//para que vuelva bien
+	int_flag=0;
 }
 
 #pragma GCC pop_options
