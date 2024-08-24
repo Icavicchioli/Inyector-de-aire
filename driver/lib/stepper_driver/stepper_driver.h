@@ -14,7 +14,7 @@ class Stepper_driver{
         void set_M0_pin(char pin_M0);
         void set_M1_pin(char pin_M1);
         void set_M2_pin(char pin_M2);
-        void step();
+        void step(int pin);
         void set_direction(sentido_t dir);
         void enable_motor();
         void disable_motor();   
@@ -79,11 +79,11 @@ void Stepper_driver::set_M2_pin(char pin_M2){
     digitalWrite(pin_M2,0);
 };
 
-void Stepper_driver::step(){
-    digitalWrite(this->pin_step_, 1);
-    delay(1);
-    digitalWrite(this->pin_step_, 0);
-    delay(1);
+void Stepper_driver::step(int pin){
+    digitalWrite(pin, 1);
+    delayMicroseconds(300);
+    digitalWrite(pin, 0);
+    delayMicroseconds(300);
 };
 
 void Stepper_driver::set_direction(sentido_t dir){
@@ -93,9 +93,12 @@ void Stepper_driver::set_direction(sentido_t dir){
 
 void Stepper_driver::move_steps(sentido_t dir, int steps){
     this->set_direction(dir);
+    this->enable_motor();
+	int pin = this->pin_step_;
     for(int x=0; x < steps ; x++){
-        this->step();
+        this->step(pin);
     };
+    this->disable_motor();
 };
 
 
